@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dataSourceOptions } from 'src/configuration/orm.configuration';
+import { dataSourceOptions } from './configuration/orm.configuration';
 import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { configuration } from 'src/configuration/configuration';
-import { configurationValidate } from 'src/configuration/configuration.validate';
+import { configuration } from './configuration/configuration';
+import { configurationValidate } from './configuration/configuration.validate';
 import { PlayerModule } from './module/player/player.module';
 
 @Module({

@@ -44,10 +44,10 @@ const development: DataSourceOptions = {
 
 const automatedTests: DataSourceOptions = {
   type: 'better-sqlite3',
-  database: `./data/tests.${Math.random()}.db`,
+  database: `./data/tests.${Math.random()}.sqlite`,
   synchronize: true,
   dropSchema: false,
-  verbose: console.log,
+  // verbose: console.log,
   namingStrategy: new SnakeNamingStrategy(),
 };
 

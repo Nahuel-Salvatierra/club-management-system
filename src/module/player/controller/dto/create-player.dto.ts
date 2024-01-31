@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreatePlayerDto {
   @IsString()
@@ -12,7 +12,7 @@ export class CreatePlayerDto {
   @IsNotEmpty()
   lastName: string;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
   dateOfBirth: Date;
 
