@@ -21,9 +21,33 @@ export class PlayerMysqlRepository implements PlayerRepository {
   }
 
   async findById(id: number): Promise<Player> {
-    const bookEntity = await this.repository.findOne({
+    const playerEntity = await this.repository.findOne({
       where: { id },
     });
-    return this.mapperService.entityToClass(bookEntity, new Player());
+    if (!playerEntity) throw new Error('Player not found');
+    return this.mapperService.entityToClass(playerEntity, new Player());
+  }
+
+  async findAll(): Promise<Player[]> {
+    const players = await this.repository.find();
+    return players.map((player) =>
+      this.mapperService.entityToClass(player, new Player()),
+    );
+  }
+
+  async remove(id: number): Promise<void> {
+    const player = await this.repository.findOne({ where: { id } });
+    if (!player) throw new Error('Player not found');
+    await this.repository.remove(player);
+  }
+
+  async update(newInfoPlayer: Player, id: number): Promise<Player> {
+    const player = await this.repository.findOne({ where: { id } });
+    if (!player) throw new Error('Player not found');
+
+    this.repository.merge(player, newInfoPlayer);
+    const updatedPlayer = await this.repository.save(player);
+
+    return this.mapperService.entityToClass(updatedPlayer, new Player());
   }
 }
