@@ -6,6 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from './configuration/configuration';
 import { configurationValidate } from './configuration/configuration.validate';
 import { PlayerModule } from './module/player/player.module';
+import { FileModule } from './module/file/file.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -23,7 +26,13 @@ import { PlayerModule } from './module/player/player.module';
         return new DataSource(options).initialize();
       },
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/public',
+      exclude: ['/api/(.*)'],
+    }),
     PlayerModule,
+    FileModule,
   ],
   controllers: [],
   providers: [],
